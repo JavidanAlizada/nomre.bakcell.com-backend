@@ -15,7 +15,7 @@ After 4. step project is running and connects to elastic-search database
 
 **Spring Boot** -> _Application Context and enterprise web app_\
 **MapStruct** _->_ _For_ mapping\
-**Elasticsearch** -> _For storing large dataset and searching quickly by index_
+**Elasticsearch** -> _For storing large dataset and searching quickly by index_\
 **Scheduler** -> Job applied for controlling reservations exist or not which created date is higher than 5hours
 
 ### Endpoint urls with HTTP Methods:
