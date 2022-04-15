@@ -1,0 +1,40 @@
+version: '3.1'
+services:
+  elasticsearch:
+    image: elasticsearch:7.17.2
+    ports:
+      - '9200:9200'
+      - '9300:9300'
+    environment:
+      - node.name=elasticsearch
+      - discovery.type=single-node
+      #      - discovery.seed_hosts=elasticsearch
+      #      - cluster.initial_master_nodes=elasticsearch
+      - cluster.name=docker-cluster
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    healthcheck:
+      test: curl -s http://localhost:9200 >/dev/null || exit 1
+      interval: 30s
+      timeout: 10s
+      retries: 50
+    networks:
+      - elknet
+
+#  bakcell-nomre:
+#    build:
+#      context: ./
+#      dockerfile: Dockerfile
+#    ports:
+#      - "8080:8080"
+#    depends_on:
+#      elasticsearch:
+#        condition: service_healthy
+#    links:
+#      - elasticsearch
+#    restart: on-failure
+#    networks:
+#      - elknet
+
+networks:
+  elknet:

@@ -1,0 +1,26 @@
+# server properties
+server:
+  address: localhost
+  port: 8080
+
+spring:
+  elasticsearch:
+    connection-timeout: 30000
+  main:
+    allow-bean-definition-overriding: true
+  data:
+    elasticsearch:
+      repositories:
+        enabled: true
+
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 300MB
+      max-request-size: 300MB
+      file-size-threshold: 2KB
+
+
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
