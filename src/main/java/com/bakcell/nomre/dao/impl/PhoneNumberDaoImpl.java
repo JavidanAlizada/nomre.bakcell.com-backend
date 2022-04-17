@@ -73,8 +73,8 @@ public class PhoneNumberDaoImpl implements PhoneNumberDao {
     public PhoneNumberResponse findByPrefixAndMsisdn(String prefix, String msisdn) {
 
         QueryBuilder queryBuilder = QueryBuilders.boolQuery()
-                .must(QueryBuilders.matchQuery("prefix", prefix))
-                .should(QueryBuilders.matchQuery("msisdn", this.getMsisdnSearchRegex(msisdn)));
+                .must(QueryBuilders.regexpQuery("msisdn", this.getMsisdnSearchRegex(msisdn)))
+                .must(QueryBuilders.matchQuery("prefix", prefix));
 
         NativeSearchQuery nativeSearchQuery = new NativeSearchQueryBuilder()
                 .withQuery(queryBuilder)
@@ -91,8 +91,8 @@ public class PhoneNumberDaoImpl implements PhoneNumberDao {
     @Override
     public PhoneNumberResponse findByPrefixAndCategoryName(String prefix, String categoryName) {
         QueryBuilder queryBuilder = QueryBuilders.boolQuery()
-                .should(QueryBuilders.matchQuery("categoryName", categoryName))
-                .should(QueryBuilders.matchQuery("prefix", prefix));
+                .must(QueryBuilders.matchQuery("categoryName", categoryName))
+                .must(QueryBuilders.matchQuery("prefix", prefix));
 
         NativeSearchQuery nativeSearchQuery = new NativeSearchQueryBuilder()
                 .withQuery(queryBuilder)
@@ -109,9 +109,9 @@ public class PhoneNumberDaoImpl implements PhoneNumberDao {
     @Override
     public PhoneNumberResponse findByPrefixAndMsisdnAndCategoryName(String prefix, String msisdn, String categoryName) {
         QueryBuilder queryBuilder = QueryBuilders.boolQuery()
-                .should(QueryBuilders.matchQuery("msisdn", this.getMsisdnSearchRegex(msisdn)))
-                .should(QueryBuilders.matchQuery("categoryName", categoryName))
-                .should(QueryBuilders.matchQuery("prefix", prefix));
+                .must(QueryBuilders.regexpQuery("msisdn", this.getMsisdnSearchRegex(msisdn)))
+                .must(QueryBuilders.matchQuery("categoryName", categoryName))
+                .must(QueryBuilders.matchQuery("prefix", prefix));
 
         NativeSearchQuery nativeSearchQuery = new NativeSearchQueryBuilder()
                 .withQuery(queryBuilder)
@@ -128,8 +128,8 @@ public class PhoneNumberDaoImpl implements PhoneNumberDao {
     @Override
     public PhoneNumberResponse findByMsisdnAndCategoryName(String msisdn, String categoryName) {
         QueryBuilder queryBuilder = QueryBuilders.boolQuery()
-                .should(QueryBuilders.matchQuery("categoryName", categoryName))
-                .should(QueryBuilders.matchQuery("msisdn", this.getMsisdnSearchRegex(msisdn)));
+                .must(QueryBuilders.regexpQuery("msisdn", this.getMsisdnSearchRegex(msisdn)))
+                .must(QueryBuilders.matchQuery("categoryName", categoryName));
 
         NativeSearchQuery nativeSearchQuery = new NativeSearchQueryBuilder()
                 .withQuery(queryBuilder)
