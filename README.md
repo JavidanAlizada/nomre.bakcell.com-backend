@@ -16,7 +16,7 @@ common `network`, but it throws connection error when docker try to start app se
 2. **Downloading a larger data set (MSISDN and CATEGORY column csv file) can cause the program to freeze, and the server 
    to respond late. I think the loading process should be optimized, and the errors associated with loading a larger data
    set should be corrected, but it will take at least an extra week to configure correct property settings of the elasticsearch.
-   For now, you can use this tested csv file https://drive.google.com/file/d/1GDW_Lb77eYNCBNBKX6BjvdD9jznXqgQA/view?usp=sharing 
+   For now, you can use this tested csv file https://drive.google.com/file/d/1MB777GDGUSYyyQgvo8vcPIgOeHEEW2vB/view?usp=sharing 
    which is part of a large database.**
    
 After 3. step docker-compose run elasticsearch service and create container \
