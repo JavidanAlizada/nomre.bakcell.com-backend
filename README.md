@@ -5,7 +5,7 @@ Develop backend side of https://nomre.bakcell.com site where customers can searc
 
 1. `git clone https://github.com/JavidanAlizada/nomre.bakcell.com-backend`
 2. `cd nomre.bakcell.com-backend/`
-3. `docker-compose down && docker-compose up --build -d` **NOTE** Ensure Docker service is running
+3. `docker-compose up --build -d` **NOTE** Ensure Docker service is running
 4. `mvn clean && mvn install && mvn spring-boot:run`
 
 After 3. step docker-compose run elasticsearch service and create container \
