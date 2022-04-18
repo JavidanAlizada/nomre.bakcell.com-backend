@@ -1,5 +1,6 @@
 package com.bakcell.nomre.service.impl;
 
+import com.bakcell.nomre.enums.Category;
 import com.bakcell.nomre.factory.PhoneNumberResponseFactory;
 import com.bakcell.nomre.model.entity.PhoneNumberEntity;
 import com.bakcell.nomre.model.request.PhoneNumberRequest;
@@ -30,9 +31,15 @@ public class PhoneNumberServiceImpl implements PhoneNumbersService {
     public PhoneNumberResponse findByQuery(PhoneNumberRequest request) {
         Validator.validate(request.getPrefix());
         return this.factory.msisdn(request.getMsisdn())
-                .categoryName(Objects.nonNull(request.getCategory()) ? request.getCategory().toString() : null)
+                .categoryName(this.getCategoryOptionalValue(request.getCategory()))
                 .prefix(request.getPrefix())
                 .getPhoneNumberResponse();
+    }
+
+    private String getCategoryOptionalValue(Category category) {
+        return Optional.ofNullable(category)
+                .map(Category::getValue)
+                .orElse(null);
     }
 
     @Override
