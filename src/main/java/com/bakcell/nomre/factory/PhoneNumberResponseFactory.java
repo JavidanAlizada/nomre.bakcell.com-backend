@@ -54,7 +54,7 @@ public class PhoneNumberResponseFactory {
 
 
     private PhoneNumberQueryType getPhoneNumberQueryType(List<Boolean> methodCheckerKeys) {
-        Map<List<Boolean>, PhoneNumberQueryType> phoneNumberQueryTypeMap = getPhoneNumberQueryTypeMap();
+        Map<List<Boolean>, PhoneNumberQueryType> phoneNumberQueryTypeMap = this.getPhoneNumberQueryTypeMap();
         return phoneNumberQueryTypeMap
                 .entrySet()
                 .stream()
@@ -65,7 +65,7 @@ public class PhoneNumberResponseFactory {
     }
 
     public PhoneNumberResponse getPhoneNumberResponse() {
-        PhoneNumberQueryType type = this.getPhoneNumberQueryType(List.of(nonNull(this.prefix), nonNull(this.msisdn), nonNull(this.categoryName)));
+        PhoneNumberQueryType type = this.getPhoneNumberQueryType(this.getNullableControlsOfFields());
         switch (type) {
             case MSISDN:
                 return this.repositoryMethodSelector.byMsisdn(this.getMsisdn());
@@ -84,5 +84,9 @@ public class PhoneNumberResponseFactory {
             default:
                 return PhoneNumberResponse.builder().build();
         }
+    }
+
+    private List<Boolean> getNullableControlsOfFields() {
+        return List.of(nonNull(this.prefix), nonNull(this.msisdn), nonNull(this.categoryName));
     }
 }
