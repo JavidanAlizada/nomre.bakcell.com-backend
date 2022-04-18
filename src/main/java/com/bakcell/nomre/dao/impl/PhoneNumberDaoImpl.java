@@ -31,7 +31,11 @@ public class PhoneNumberDaoImpl implements PhoneNumberDao {
     private final PhoneNumberCounterRepository counterRepository;
 
     private String getMsisdnSearchPattern(String msisdn) {
-        return msisdn.replace("X", ".*");
+        for (int i = msisdn.length(); i > 0; i--) {
+            msisdn = msisdn.replace("X".repeat(i), String.format("([0-9]{%s})", i));
+        }
+        msisdn = ".*" + msisdn;
+        return msisdn;
     }
 
     private List<PhoneNumberEntity> toList(SearchHits<PhoneNumberEntity> searchHits) {
